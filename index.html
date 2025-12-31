@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>🎉 Chúc Mừng Năm Mới 🎉</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        background: linear-gradient(270deg, #ff0000, #ffcc00, #ff0066);
+        background-size: 600% 600%;
+        animation: bgMove 10s ease infinite;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+
+    @keyframes bgMove {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+
+    .box {
+        text-align: center;
+        animation: zoomIn 2s ease;
+    }
+
+    @keyframes zoomIn {
+        from {transform: scale(0.5); opacity: 0;}
+        to {transform: scale(1); opacity: 1;}
+    }
+
+    h1 {
+        font-size: 70px;
+        text-shadow: 0 0 10px #fff,
+                     0 0 20px #ff0,
+                     0 0 40px #ff6600;
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+        from {text-shadow: 0 0 10px #fff;}
+        to {text-shadow: 0 0 30px #ff0, 0 0 60px #ff6600;}
+    }
+
+    p {
+        font-size: 28px;
+        margin-top: 15px;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% {transform: translateY(0);}
+        50% {transform: translateY(-15px);}
+        100% {transform: translateY(0);}
+    }
+
+    .firework {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        from {
+            transform: translateY(-10vh);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(110vh);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>🎆 CHÚC MỪNG NĂM MỚI 🎆</h1>
+    <p>Chúc bạn một năm mới<br> An Khang – Thịnh Vượng – Vạn Sự Như Ý ✨</p>
+</div>
+
+<script>
+    // Tạo pháo hoa rơi
+    for (let i = 0; i < 60; i++) {
+        let firework = document.createElement("div");
+        firework.className = "firework";
+        firework.style.left = Math.random() * 100 + "vw";
+        firework.style.animationDuration = Math.random() * 3 + 2 + "s";
+        firework.style.background =
+            "hsl(" + Math.random() * 360 + ",100%,70%)";
+        document.body.appendChild(firework);
+    }
+</script>
+
+</body>
+</html>
