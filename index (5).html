@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Trần Huyy</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+    background: radial-gradient(circle, #14001f, #000);
+    font-family: 'Orbitron', sans-serif;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* TEXT */
+.text {
+    position: absolute;
+    width: 100%;
+    top: 30%;
+    text-align: center;
+    font-size: 80px;
+    font-weight: 900;
+    color: #ff2e2e;
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 10px #ff2e2e,
+        0 0 30px #ff6a00,
+        0 0 60px #ffd700;
+    animation:
+        zoomIn 2.5s ease-out forwards,
+        shake 0.15s infinite alternate,
+        glow 2s infinite alternate;
+    opacity: 0;
+}
+
+/* CAKE */
+.cake {
+    position: absolute;
+    width: 100%;
+    top: 55%;
+    text-align: center;
+    font-size: 120px;
+    animation:
+        cakeUp 2s ease-out forwards,
+        cakeGlow 1.5s infinite alternate;
+    opacity: 0;
+}
+
+/* ANIMATIONS */
+@keyframes zoomIn {
+    0% { transform: scale(0.2); opacity: 0; }
+    70% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+    from { transform: translateX(-1px); }
+    to { transform: translateX(1px); }
+}
+
+@keyframes glow {
+    from {
+        text-shadow:
+            0 0 10px #ff2e2e,
+            0 0 30px #ff6a00;
+    }
+    to {
+        text-shadow:
+            0 0 20px #ff2e2e,
+            0 0 80px #fff200;
+    }
+}
+
+@keyframes cakeUp {
+    from {
+        transform: translateY(80px) scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes cakeGlow {
+    from {
+        filter: drop-shadow(0 0 10px gold);
+    }
+    to {
+        filter: drop-shadow(0 0 40px #ffcc00);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="text">
+    HAPPY BIRTHDAY<br>
+    TRẦN HUYy Đẹp zai
+</div>
+
+<div class="cake">🎂</div>
+
+<script>
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.onresize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+};
+
+let particles = [];
+
+class Firework {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = Math.random() * 2 + 1;
+        this.color = `hsl(${Math.random() * 360},100%,60%)`;
+        this.vx = (Math.random() - 0.5) * 8;
+        this.vy = (Math.random() - 0.5) * 8;
+        this.life = 100;
+    }
+    update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.life--;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+    }
+}
+
+function launchFirework() {
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height * 0.5;
+    for (let i = 0; i < 80; i++) {
+        particles.push(new Firework(x, y));
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+        p.update();
+        p.draw();
+        if (p.life <= 0) particles.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
+}
+
+setInterval(launchFirework, 800);
+animate();
+</script>
+
+</body>
+</html>
